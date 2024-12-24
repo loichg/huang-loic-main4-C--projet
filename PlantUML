@@ -1,0 +1,102 @@
+@startuml
+skinparam class {
+    BackgroundColor #lightyellow
+    ArrowColor black
+    BorderColor black
+    FontStyle bold
+}
+
+class SystemeSolaire {
+    - nom: String
+    - age: Float
+    - nombrePlanetes: Int
+    - objetsSpatiaux: List<ObjetSpatial>
+    + obtenirEtoile(): Etoile
+    + ajouterPlanete(planete: Planete): void
+    + obtenirPlanetes(): List<Planete>
+    + ajouterObjetSpatial(objet: ObjetSpatial): void
+    + obtenirObjetsSpatiaux(): List<ObjetSpatial>
+    + simulerCycle(cycles: Int): void
+    + afficherEtatSysteme(): void
+    + mettreAJourEtat(cycles: Int): void
+}
+
+class Etoile {
+    - nom: String
+    - masse: Float
+    - luminosite: Float
+    - temperatureSurface: Float
+    + briller(): void
+    + fournirEnergie(distance: Float): Float
+    + afficherDetails(): String
+}
+
+class Planete {
+    - nom: String
+    - masse: Float
+    - distanceSoleil: Float
+    - periodeOrbitale: Float
+    - temperature: Float
+    + orbiter(cycles: Int): void
+    + recevoirEnergie(energie: Float): void
+    + afficherDetails(): String
+    + calculerGravite(): Float
+}
+
+class PlaneteTellurique {
+    - compositionSolide: String
+    - presenceEau: Boolean
+    + explorerSurface(): void
+    + calculerTemperatureMoyenne(): Float
+}
+
+class PlaneteGazeuse {
+    - compositionAtmosphere: String
+    - nombreAnneaux: Int
+    + analyserAtmosphere(): void
+    + compterAnneaux(): Int
+}
+
+class ObjetSpatial {
+    - nom: String
+    - masse: Float
+    - vitesse: Float
+    + seDeplacer(cycles: Int): void
+    + afficherDetails(): String
+    + mettreAJourPosition(cycles: Int): void
+}
+
+class Asteroide {
+    - composition: String
+    + calculerImpact(energie: Float): Float
+}
+
+class Comete {
+    - composition: String
+    - distancePerihelie: Float
+    - periodeOrbital: Float
+    + passerProcheDuSoleil(): void
+    + afficherDetails(): String
+    + mettreAJourPosition(cycles: Int): void
+}
+
+class Meteoroide {
+    - taille: Float
+    - trajectoire: String
+    + entrerAtmosphere(planete: Planete): String
+    + afficherDetails(): String
+    + mettreAJourPosition(cycles: Int): void
+}
+
+' Relations
+SystemeSolaire "1" --> "1" Etoile : contient
+SystemeSolaire "1" --> "*" Planete : contient
+SystemeSolaire "0..*" --> "*" ObjetSpatial : contient
+
+ObjetSpatial <|-- Asteroide
+ObjetSpatial <|-- Comete
+ObjetSpatial <|-- Meteoroide
+
+Planete <|-- PlaneteTellurique
+Planete <|-- PlaneteGazeuse
+@enduml
